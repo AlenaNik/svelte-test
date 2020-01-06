@@ -1,11 +1,14 @@
 <script>
 	export let name;
 	import Comp from './components/component.svelte';
+	import Fetching from './components/Fetching.svelte';
+
 	let batosha = 'alena2'
 	let inputText = 'test'
+	// $: reactivity sign
 
 	function handleClick() {
-		alert('Hi!')
+		batosha = batosha.concat('alena')
 	}
 </script>
 
@@ -16,6 +19,7 @@
 	<Comp {batosha}>
 		Hello from App
 	</Comp>
+	<Fetching/>
 </main>
 
 <style>
