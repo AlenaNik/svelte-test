@@ -1,46 +1,69 @@
 <script>
-	export let name;
-	import Comp from './components/component.svelte';
-	import Fetching from './components/Fetching.svelte';
+	import marked from 'marked';
+	let source = '# New document';
+	$: markdown = marked(source);
 
-	let batosha = 'alena2'
-	let inputText = 'test'
 	// $: reactivity sign
-
-	function handleClick() {
-		batosha = batosha.concat('alena')
-	}
 </script>
 
 <main>
-	<h1>Hello {name}! </h1>
-	<button on:click={handleClick}>Press Me</button>
-	<input type="text" bind:value={inputText}>
-	<Comp {batosha}>
-		Hello from App
-	</Comp>
-	<Fetching/>
+	<header class="header">
+		<h1 class="header-title">Svelte powered markdown editor</h1>
+	</header>
+
+	<div class="markdown-editor">
+		<div class="markdown-editor__left-panel">
+			<textarea bind:value={source} class="markdown-editor__source"></textarea>
+		</div>
+
+		<div class="markdown-editor__right-panel">
+			<div class="markdown-editor__output">{@html markdown}</div>
+		</div>
+	</div>
 </main>
 
 <style>
 	/* scoped by default */
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
+	.header {
+		height: 10vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
+	.header-title {
+		margin: 0;
 	}
 
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
+	.markdown-editor {
+		width: 100%;
+		display: flex;
+		align-items:flex-start;
+		justify-content: space-evenly;
+	}
+
+	.markdown-editor__left-panel, .markdown-editor__right-panel {
+		width: 50%;
+		border: solid 1px black;
+		height: 90vh;
+	}
+
+	.markdown-editor__right-panel {
+		overflow: auto;
+	}
+
+	.markdown-editor__source {
+		border: none;
+		width: 100%;
+		height: 100%;
+	}
+
+	.markdown-editor__source:focus {
+		outline: none;
+	}
+
+	.markdown-editor__output {
+		width: 100%;
+		padding: 0 2em;
 	}
 </style>
